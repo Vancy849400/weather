@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body
+    class="bg-gradient-to-br from-blue-700 to-cyan-500 min-h-screen flex items-center justify-center p-4"
+  >
+    <div
+      class="bg-gray-800/80 backdrop-blur-md rounded-3xl shadow-2xl p-8 w-full max-w-sm text-white text-center"
+    >
+      <div class="flex justify-between items-center mb-8 gap-3">
+        <input
+          type="text"
+          id="city-input"
+          placeholder="Enter city name..."
+          class="flex-grow p-3 rounded-full border-2 border-transparent focus:border-cyan-400 bg-gray-700/60 text-sm placeholder-gray-400 focus:outline-none transition-colors"
+        />
+
+        <button
+          id="search-btn"
+          class="bg-white p-3 rounded-full shadow-lg hover:bg-cyan-400 transition-all active:scale-95"
+          aria-label="Search for weather"
+          onclick="getweather(location)"
+        >
+          <i class="fas fa-search text-gray-800 text-lg"></i>
+        </button>
+      </div>
+
+      <div id="weather-display">
+        <img
+          src="./Image/cloudy.png"
+          alt="Weather Condition Icon"
+          id="weather-icon"
+          class="w-32 h-32 mx-auto mb-4 image-icon"
+        />
+
+        <h1 id="temp-display" class="text-6xl font-extrabold mb-2">27°C</h1>
+
+        <h2 id="city-display" class="text-3xl font-semibold mb-8 text-gray-200">
+          Lusaka
+        </h2>
+
+        <div class="flex justify-around border-t border-gray-600 pt-6">
+          <div class="flex flex-col items-center">
+            <i class="fas fa-tint text-cyan-400 text-2xl mb-1"></i>
+            <p id="humidity-value" class="text-xl font-bold">60%</p>
+            <p class="text-xs text-gray-400 uppercase tracking-wider">
+              Humidity
+            </p>
+          </div>
+
+          <div class="flex flex-col items-center">
+            <i class="fas fa-wind text-cyan-400 text-2xl mb-1"></i>
+            <p id="wind-value" class="text-xl font-bold">15 km/h</p>
+            <p class="text-xs text-gray-400 uppercase tracking-wider">Wind</p>
+          </div>
+        </div>
+      </div>
+
+      <p id="error-message" class="mt-4 text-red-400 text-sm hidden">
+        City not found. Please try again.
+      </p>
+    </div>
+
+    <script src="index.js"></script>
+  </body>
+</html>
