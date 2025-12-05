@@ -63,6 +63,7 @@ searchBtn.addEventListener("click", () => {
 
   if (location) {
     getweather(location);
+    searchInput.value = ""
   } else {
     errorMsg.textContent = "Please enter a city name.";
     errorMsg.classList.remove("hidden");
