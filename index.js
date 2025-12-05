@@ -10,7 +10,7 @@ const errorMsg = document.getElementById("error-message");
 
 // 2. Constants for API Key and Base URL
 const API_KEY = "67310d122e534413b94121938250512";
-const BASE_URL = `http://api.weatherapi.com/v1/current.json?key=${API_KEY}&aqi=no&q=`;
+const BASE_URL = `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&aqi=no&q=`;
 
 /**
  * @param {string} location The city name or location to search for.
