@@ -20,6 +20,14 @@
         height: 35px;
         animation: spin 1s linear infinite;
       }
+      #suggestions li {
+        transition: background 0.2s;
+      }
+
+      #suggestions {
+        max-height: 260px;
+        overflow-y: auto;
+      }
 
       @keyframes spin {
         0% {
@@ -73,6 +81,12 @@
           </button>
         </div>
 
+        <!-- 🔽 SEARCH DROPDOWN -->
+        <ul
+          id="suggestions"
+          class="absolute left-0 right-0 top-14 bg-gray-800/90 border border-gray-700 rounded-lg hidden shadow-xl max-h-60 overflow-y-auto z-30"
+        ></ul>
+
         <p
           id="error-message"
           class="absolute -bottom-5 left-4 text-red-400 text-xs hidden font-medium"
@@ -100,19 +114,17 @@
             id="weather-icon"
             src="./Image/cloudy.png"
             alt="Weather icon"
-            class="w-28 h-28 sm:w-32 sm:h-32 mb-3 object-contain drop-shadow-lg"
+            class="w-28 h-28 sm:w-32 sm:h-32 object-contain drop-shadow-lg"
           />
-
+          <p id="weather-description" class="text-lg text-gray-300 italic mb-3">
+            Overcast Clouds
+          </p>
           <h1
             id="temp-display"
             class="text-6xl sm:text-7xl font-black mb-1 temp-glow"
           >
             27°C
           </h1>
-
-          <p id="weather-description" class="text-lg text-gray-300 italic">
-            Overcast Clouds
-          </p>
         </section>
 
         <!-- Weather Stats -->
