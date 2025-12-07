@@ -3,115 +3,138 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Weather App</title>
+    <title>Dynamic Weather App</title>
+
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
+
     <style>
-      /* Simple spinner animation for loading state */
       .loader {
-        border: 4px solid #f3f3f3; /* Light grey */
-        border-top: 4px solid #22d3ee; /* Cyan-400 matching theme */
+        border: 4px solid #e5e7eb;
+        border-top: 4px solid #6366f1;
         border-radius: 50%;
-        width: 40px;
-        height: 40px;
+        width: 35px;
+        height: 35px;
         animation: spin 1s linear infinite;
       }
+
       @keyframes spin {
         0% {
-          transform: rotate(0deg);
+          transform: rotate(0);
         }
         100% {
           transform: rotate(360deg);
         }
       }
+
+      .frosted-card {
+        background-color: rgba(30, 41, 59, 0.85);
+        backdrop-filter: blur(12px);
+        border-radius: 1.5rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 15px 20px -5px rgba(0, 0, 0, 0.35),
+          0 8px 8px -5px rgba(0, 0, 0, 0.15);
+      }
+
+      .temp-glow {
+        text-shadow: 0 0 8px rgba(129, 140, 248, 0.45),
+          0 0 4px rgba(129, 140, 248, 0.45);
+      }
     </style>
   </head>
 
   <body
-    class="bg-gradient-to-br from-blue-900 to-cyan-600 min-h-screen flex items-center justify-center p-4 sm:p-8 font-sans"
+    class="bg-gradient-to-tr from-gray-900 via-indigo-900 to-slate-900 min-h-screen flex items-center justify-center p-4 font-sans"
   >
     <main
-      class="bg-gray-800/70 backdrop-blur-lg shadow-2xl p-6 sm:p-10 text-white text-center w-full max-w-md border border-white/10 overflow-hidden"
+      class="frosted-card text-white text-center w-full max-w-xl p-6 sm:p-8 transition-all duration-500"
     >
-      <form id="search-form" class="mb-10 relative">
-        <label for="city-input" class="sr-only">Enter city name</label>
+      <!-- Search Form -->
+      <form id="search-form" class="mb-6 relative" autocomplete="off">
+        <label for="city-input" class="sr-only">Search for a city</label>
+
         <div class="relative flex items-center">
           <input
             type="text"
             id="city-input"
-            placeholder="Enter city name..."
-            autocomplete="off"
-            class="w-full p-4 pr-16 rounded-full bg-gray-900/50 border border-gray-600/50 focus:border-cyan-400 text-white placeholder-gray-400 shadow-inner focus:outline-none transition-all"
+            placeholder="Search a city..."
+            class="w-full p-3 pr-16 rounded-full bg-gray-700/40 border border-gray-600 focus:border-indigo-400 text-white placeholder-gray-300 shadow-md transition-all focus:outline-none"
           />
 
           <button
             type="submit"
-            id="search-btn"
-            class="absolute right-2 bg-cyan-500 hover:bg-cyan-400 p-3 h-10 w-10 rounded-full shadow-lg transition-all active:scale-95 flex items-center justify-center"
-            aria-label="Search"
+            aria-label="Search city"
+            class="absolute right-2 bg-indigo-500 hover:bg-indigo-400 p-2 h-9 w-9 rounded-full shadow-md transition-all active:scale-95 flex items-center justify-center"
           >
-            <i class="fas fa-search text-white text-sm"></i>
+            <i class="fas fa-arrow-right text-white text-sm"></i>
           </button>
         </div>
+
         <p
           id="error-message"
-          class="absolute -bottom-6 left-4 text-red-400 text-sm hidden font-medium"
+          class="absolute -bottom-5 left-4 text-red-400 text-xs hidden font-medium"
         >
-          City not found. Please try again.
+          City not found. Try again.
         </p>
       </form>
 
-      <div
-        id="loading-indicator"
-        class="hidden flex justify-center items-center py-10"
-      >
+      <!-- Loading -->
+      <div id="loading-indicator" class="hidden flex justify-center py-6">
         <div class="loader"></div>
       </div>
 
+      <!-- Weather Display -->
       <div id="weather-display" class="transition-opacity duration-300">
-        <img
-          src="./Image/cloudy.png"
-          alt="Weather Condition"
-          id="weather-icon"
-          class="w-32 h-32 sm:w-40 sm:h-40 mx-auto mb-6 drop-shadow-lg object-contain"
-        />
-
-        <h1
-          id="temp-display"
-          class="text-6xl sm:text-7xl font-extrabold mb-2 drop-shadow-md"
-        >
-          27°C
-        </h1>
-
         <h2
           id="city-display"
-          class="text-2xl sm:text-3xl font-medium mb-10 text-gray-100 tracking-wide drop-shadow-sm"
+          class="text-2xl sm:text-3xl font-bold mb-6 text-indigo-300 tracking-wide border-b border-indigo-500/40 pb-2"
         >
           Lusaka
         </h2>
 
-        <div class="flex justify-around border-t border-white/20 pt-8 gap-4">
-          <div class="flex flex-col items-center p-2 flex-1">
-            <i class="fas fa-water text-cyan-400 text-3xl mb-2"></i>
+        <section class="flex flex-col items-center mb-6">
+          <img
+            id="weather-icon"
+            src="./Image/cloudy.png"
+            alt="Weather icon"
+            class="w-28 h-28 sm:w-32 sm:h-32 mb-3 object-contain drop-shadow-lg"
+          />
+
+          <h1
+            id="temp-display"
+            class="text-6xl sm:text-7xl font-black mb-1 temp-glow"
+          >
+            27°C
+          </h1>
+
+          <p id="weather-description" class="text-lg text-gray-300 italic">
+            Overcast Clouds
+          </p>
+        </section>
+
+        <!-- Weather Stats -->
+        <div class="grid grid-cols-2 gap-3 border-t border-white/20 pt-6">
+          <div
+            class="flex flex-col items-center p-3 bg-gray-800/40 rounded-lg shadow-md hover:bg-gray-700/40 transition"
+          >
+            <i class="fas fa-tint text-indigo-400 text-2xl mb-1"></i>
             <p id="humidity-value" class="text-xl font-bold">60%</p>
-            <p
-              class="text-xs text-gray-300 uppercase tracking-wider font-medium"
-            >
+            <p class="text-xs text-indigo-200 uppercase tracking-wide">
               Humidity
             </p>
           </div>
 
           <div
-            class="flex flex-col items-center p-2 flex-1 border-l border-white/20"
+            class="flex flex-col items-center p-3 bg-gray-800/40 rounded-lg shadow-md hover:bg-gray-700/40 transition"
           >
-            <i class="fas fa-wind text-cyan-400 text-3xl mb-2"></i>
+            <i
+              class="fas fa-location-arrow text-indigo-400 text-2xl mb-1 rotate-45"
+            ></i>
             <p id="wind-value" class="text-xl font-bold">15 km/h</p>
-            <p
-              class="text-xs text-gray-300 uppercase tracking-wider font-medium"
-            >
+            <p class="text-xs text-indigo-200 uppercase tracking-wide">
               Wind Speed
             </p>
           </div>
